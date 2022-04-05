@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#00B2D8</color>>
+    <color name="Themecolour">#00b2d8</color>
+    <color name="red">#f86b5d</color>
+    <color name="dark_red">#e60000</color>
+    <color name="colorTransparent">#00ff6d00</color>
+    <color name="light_grey">#dcdcdc</color>
+    <color name="orange">#FB9333</color>
+    <color name="textblue">#657d92</color>
+    <color name="backgroundmain">#f7fffe</color>
+    <color name="medicalborder">#fcaf3c</color>
+    <color name="green">#54A645</color>
+    <color name="default_intermediate_bg">#F5FDFF</color>
+    <color name="default_intermediate_continue_bg">#39B0E1</color>
+    <color name="light_black">#888484</color>
+    <color name="ques_black">#515050</color>
+    <color name="symptom_yes_clr">#353535</color>
+    <color name="symptom_no_clr">#9D9D9D</color>
+    <color name="green_svl">#1C843B</color>
+    <color name="color_green">#1C833B</color>
+
+
+    <array name="array_dot_active">
+        <item>@color/Themecolour</item>
+        <item>@color/Themecolour</item>
+        <item>@color/Themecolour</item>
+        <item>@color/Themecolour</item>
+
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@android:color/white</item>
+        <item>@android:color/white</item>
+        <item>@android:color/white</item>
+        <item>@android:color/white</item>
+
+    </array>
+    <color name="appTheme">#00B2D8</color>
+    <color name="notification_icon_color">#3bef2c</color>
+    <color name="background">#F7FFFE</color>
+    <color name="button_red">#F85545</color>
+    <color name="red_symptom">#F85545</color>
+    <color name="yellow_symptom">#FCAF3C</color>
+    <color name="green_symptom">#2DC16C</color>
+    <color name="grey">#9D9D9D</color>
+    <color name="blue">#00B2D8</color>
+    <color name="amplia_text">#142D56</color>
+    <color name="grey_button">#f0f0f0</color>
+
+    <color name="home_banner_red">#F75545</color>
+</resources>
