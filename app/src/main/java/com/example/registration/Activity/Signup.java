@@ -87,10 +87,8 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
             }
     }
     private void hitApi() {
-        String a=item+edtPhone.getText().toString();
-                SignupRequest signupRequest=new SignupRequest();
-                signupRequest.setPhone(a);
-        new Gson().toJson(signupRequest);
+
+//        new Gson().toJson(signupRequest);
         iSignUpPresenter = new SignUpPresenterImpl();
         iSignUpPresenter.setView(this);
         iSignUpPresenter.hitSignUp();
@@ -172,8 +170,13 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
                    }
                    break;
                case R.id.btnVerifyCode:
-//                   if (Connectivity.isConnected(this)){
-                           VerifyOtp();
+                   VerifyOtp();
+////                   if (Connectivity.isConnected(this)){
+//                           if(VerifyOtp()){
+//                               Intent intent = new Intent(this,PersonalDetails.class);
+//                               ExtraUtils.SIGN_UP_DATA = signUpRequest;
+//                               startActivity(intent);
+//                           }
 //                       Toast.makeText(this, "Success1", Toast.LENGTH_SHORT).show();}
 //                           signUp();
 //                   }else{
@@ -203,16 +206,17 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
             txtVerifyOtp.setError("This field must be filled");
             return false;
         }
-//        Observable<SignUpResponse> call=RetrofitFactory.getInstance().getApi().Verify(otp);
+
+//        Call<SignUpResponse> call=RetrofitFactory.getInstance().getApi().Verify(otp);
 //        call.enqueue(new Callback<SignUpResponse>() {
 //            @Override
 //            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
-//                SignUpResponse signUpResponse=response.body();
-//                Toast.makeText(Signup.this, "res"+signUpResponse, Toast.LENGTH_SHORT).show();
-//                if(response.isSuccessful()) {
+//                SignUpResponse signUpResponse = response.body();
+//                Toast.makeText(Signup.this, "res" + signUpResponse, Toast.LENGTH_SHORT).show();
+//                if (response.isSuccessful()) {
 //                    Toast.makeText(Signup.this, "sucesss", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(Signup.this, PersonalDetails.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                    startActivity(intent);
 //                }
 //            }
@@ -221,6 +225,12 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
 //            public void onFailure(Call<SignUpResponse> call, Throwable t) {
 //                Toast.makeText(Signup.this, "ERROR", Toast.LENGTH_SHORT).show();
 //            }
+//
+//            @Override
+//            public void onFailure(Call<SignUpResponse> call, Throwable t) {
+//                Toast.makeText(Signup.this, "ERROR", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 //        });
         return true;
     }
@@ -271,9 +281,7 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     public void setResponse(SignUpResponse signUpResponse) {
         if (signUpResponse!=null && signUpResponse.getMessage()!=null && signUpResponse.getMessage().getSuccessMessage()!=null && signUpResponse.getMessage().getSuccessMessage().length()!=0){
             Toast.makeText(this,signUpResponse.getMessage().getSuccessMessage(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this,PersonalDetails.class);
-            ExtraUtils.SIGN_UP_DATA = signUpRequest;
-            startActivity(intent);
+
         }
         else{
             assert signUpResponse != null;
@@ -291,14 +299,17 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
 
     @Override
     public SignupRequest getRequest() {
-        return signUpRequest;
+        String a=item+edtPhone.getText().toString();
+        SignupRequest signupRequest=new SignupRequest();
+        signupRequest.setPhone(a);
+        return signupRequest;
     }
 
-//    @Override
-//    public void setDigest(String digest) {
-//        ExtraUtils.DIGEST = digest;
-//        Toast.makeText(this, "digest", Toast.LENGTH_SHORT).show();
-//    }
+    @Override
+    public void setDigest(String digest) {
+        ExtraUtils.DIGEST = digest;
+        Toast.makeText(this, "digest", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public int getLayoutById() {

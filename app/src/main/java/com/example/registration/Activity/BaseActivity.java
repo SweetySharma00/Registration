@@ -45,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseActi
         return "JM";
     }
     public String getClientType(){
-        return "Mobile";
+        return "Android"+" "+Build.VERSION.SDK_INT;
     }
 
 

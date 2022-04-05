@@ -22,30 +22,37 @@ public class SignUpPresenterImpl implements ISignUpPresenter{
     @Override
     public void hitSignUp()  {
         SignupRequest signupRequest=iSignUpView.getRequest();
-//        String PlatformType=((BaseActivity)iSignUpView).getPlatformType();
-//        String ClientType=((BaseActivity)iSignUpView).getClientType();
+        String PlatformType=((BaseActivity)iSignUpView).getPlatformType();
+        String ClientType=((BaseActivity)iSignUpView).getClientType();
         RetrofitFactory retrofitFactory = RetrofitFactory.getInstance();
         IRetrofitContract iRetrofitContract = retrofitFactory.getRetrofitContract(RetroUtils.APP_ENV);
-        Observable<SignUpResponse> signUpResponseObservable = iRetrofitContract.SignUp(signupRequest);
-        signUpResponseObservable.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<SignUpResponse>() {
+        Observable<Response<SignUpResponse>> signUpResponseObservable = iRetrofitContract.SignUp(PlatformType,ClientType,signupRequest);
+        signUpResponseObservable.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<SignUpResponse>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(SignUpResponse signUpResponse) {
-//                if (signUpResponse.errorBody()==null){
-//                    String digest = signUpResponse.headers().get("Access-Medium");
-////                    iSignUpView.setDigest(digest);
-//                    iSignUpView.setResponse(signUpResponse.body());
-//                }else{iSignUpView.setError(new Throwable());
-//                }
-                iSignUpView.setResponse(signUpResponse);
+            public void onNext(Response<SignUpResponse> signUpResponse) {
+                if (signUpResponse.errorBody()==null){
+                    String digest = signUpResponse.headers().get("Access-Medium");
+                    iSignUpView.setDigest(digest);
+                    iSignUpView.setResponse(signUpResponse.body());
+                }else{iSignUpView.setError(new Throwable());
+                }
+//                iSignUpView.setResponse(signUpResponse.body());
             }
+
+//            @Override
+//            public void onNext(SignUpResponse signUpResponse) {
+//
+//                iSignUpView.setResponse(signUpResponse);
+//            }
 
             @Override
             public void onError(Throwable e) {
+
                 iSignUpView.setError(e);
             }
 

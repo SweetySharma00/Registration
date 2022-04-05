@@ -8,6 +8,8 @@ public interface ISignUpView {
     void setResponse(SignUpResponse signUpResponse);
     void setError(Throwable error);
     SignupRequest getRequest();
-//    void setDigest(String digest);
-
+    void setDigest(String digest);
+//     String getDigest();
+//    void setValidateResponse(SignUpResponse signUpResponse);
+//    String getOTP();
 }
