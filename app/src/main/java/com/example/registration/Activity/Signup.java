@@ -1,13 +1,9 @@
 package com.example.registration.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,21 +21,12 @@ import com.example.registration.MVP.Signup.ISignUpPresenter;
 import com.example.registration.MVP.Signup.ISignUpView;
 import com.example.registration.MVP.Signup.SignUpPresenterImpl;
 import com.example.registration.R;
-import com.example.registration.RetrofitAPI.api.RetrofitFactory;
+import com.example.registration.RetrofitAPI.models.request.OtpRequest;
 import com.example.registration.RetrofitAPI.models.request.SignupRequest;
-import com.example.registration.RetrofitAPI.models.response.Message;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 import com.example.registration.Utils.Connectivity;
 import com.example.registration.Utils.ExtraUtils;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
-
-import java.util.ArrayList;
-import java.util.Observable;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Signup extends BaseActivity implements Validators, View.OnClickListener,
         View.OnTouchListener,ISignUpView {
@@ -64,6 +51,8 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
 //                }
 //                btnVerifyCode.setVisibility(View.VISIBLE);
 //                btnSendCode.setVisibility(View.GONE);
+                edtVerifyOtp.setEnabled(true);
+                edtPhone.setEnabled(false);
                 text.setVisibility(View.VISIBLE);
                 show.setVisibility(View.VISIBLE);
 
@@ -110,6 +99,7 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
         resendCode=findViewById(R.id.resendCode);
         resendCode.setVisibility(View.GONE);
         edtVerifyOtp=findViewById(R.id.edtVerifyOtp);
+        edtVerifyOtp.setEnabled(false);
         btnSendCode = findViewById(R.id.btnSendCode);
         btnSendCode.setOnClickListener(this);
         btnCancel=findViewById(R.id.btnCancel);
@@ -170,7 +160,12 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
                    }
                    break;
                case R.id.btnVerifyCode:
-                   VerifyOtp();
+                   if(VerifyOtp()){
+                       edtPhone.setEnabled(false);
+                       iSignUpPresenter = new SignUpPresenterImpl();
+                       iSignUpPresenter.setView(this);
+                       iSignUpPresenter.verifyOTP();
+                   }
 ////                   if (Connectivity.isConnected(this)){
 //                           if(VerifyOtp()){
 //                               Intent intent = new Intent(this,PersonalDetails.class);
@@ -203,7 +198,7 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     private boolean VerifyOtp() {
         String otp=edtVerifyOtp.getText().toString();
         if(otp.isEmpty() && otp.length()<6){
-            txtVerifyOtp.setError("This field must be filled");
+            txtVerifyOtp.setError("Required field");
             return false;
         }
 
@@ -274,6 +269,7 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     }
 
     public void Resend(View view) {
+        hitApi();
         Toast.makeText(this, "Resending", Toast.LENGTH_SHORT).show();
     }
 
@@ -304,25 +300,40 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
         signupRequest.setPhone(a);
         return signupRequest;
     }
+    @Override
+    public OtpRequest getOTP() {
+        String otp=edtVerifyOtp.getText().toString();
+        OtpRequest otpRequest=new OtpRequest();
+        otpRequest.setOtp(otp);
+        return otpRequest;
+    }
 
     @Override
     public void setDigest(String digest) {
         ExtraUtils.DIGEST = digest;
-        Toast.makeText(this, "digest", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "digest", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public int getLayoutById() {
-        return 0;
+    public String getDigest() {
+        return ExtraUtils.DIGEST;
     }
 
     @Override
-    public void getViewById() {
+    public void setValidateResponse(SignUpResponse signUpResponse) {
+        if (signUpResponse!=null && signUpResponse.getMessage()!=null && signUpResponse.getMessage().getSuccessMessage()!=null && signUpResponse.getMessage().getSuccessMessage().length()!=0){
+            Toast.makeText(this,signUpResponse.getMessage().getSuccessMessage(),Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Signup.this, PersonalDetails.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
 
-    }
-
-    @Override
-    public void manageToolBar() {
+        }
+        else{
+            assert signUpResponse != null;
+            assert signUpResponse.getMessage() != null;
+            Toast.makeText(this, signUpResponse.getMessage().getErrorMessage(), Toast.LENGTH_LONG).show();
+//            txtVerifyOtp.setError("This field must be filled");
+        }
 
     }
 
@@ -341,55 +352,4 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
 
     }
 
-    @Override
-    public void showSnackBarMessage(String message) {
-
-    }
-
-    @Override
-    public String getTokenForAPI() {
-        return null;
-    }
-
-    @Override
-    public String getDeviceToken() {
-        return null;
-    }
-
-    @Override
-    public void setTokenForAPI(SignUpResponse signUpResponse) {
-
-    }
-
-    @Override
-    public void updateVersionDialog(String updateUrl, String message) {
-
-    }
-
-    @Override
-    public String getSelectedCountryCode() {
-        return null;
-    }
-
-    @Override
-    public String getSelectedGroupCode() {
-        return null;
-    }
-
-    @Override
-    public void onClientVersionUpdate(String updateUrl, String message) {
-
-    }
-
-    @Override
-    public void showCountryLogo(int countyLogo, int appLogo, int title) {
-
-    }
-
-//    public ArrayList<String> getCountryPhoneCodes() {
-//        ArrayList<String> arrayList = new ArrayList<>();
-//        arrayList.add("91");
-//        arrayList.add("1");
-//        return arrayList;
-//    }
 }

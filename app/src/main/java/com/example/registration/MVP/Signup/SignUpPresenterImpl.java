@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.example.registration.Activity.BaseActivity;
 import com.example.registration.RetrofitAPI.api.RetrofitFactory;
 import com.example.registration.RetrofitAPI.interfaces.IRetrofitContract;
+import com.example.registration.RetrofitAPI.models.request.OtpRequest;
 import com.example.registration.RetrofitAPI.models.request.SignupRequest;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 import com.example.registration.Utils.RetroUtils;
@@ -66,6 +67,40 @@ public class SignUpPresenterImpl implements ISignUpPresenter{
     public void setView(ISignUpView iSignUpView) {
         this.iSignUpView = iSignUpView;
     }
+
+    @Override
+    public void verifyOTP() {
+        String digest = iSignUpView.getDigest();
+        OtpRequest otp = iSignUpView.getOTP();
+        String PlatformType=((BaseActivity)iSignUpView).getPlatformType();
+        String ClientType=((BaseActivity)iSignUpView).getClientType();
+        RetrofitFactory retrofitFactory = RetrofitFactory.getInstance();
+        IRetrofitContract iRetrofitContract = retrofitFactory.getRetrofitContract(RetroUtils.APP_ENV);
+        Observable<SignUpResponse> signUpResponseOb = iRetrofitContract.Verify(digest,PlatformType,ClientType,otp);
+        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<SignUpResponse>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(SignUpResponse signUpResponse) {
+                iSignUpView.setValidateResponse(signUpResponse);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                iSignUpView.setError(e);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+
 
 }
 

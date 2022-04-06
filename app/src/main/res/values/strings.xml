@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Registration</string>
+    <string name="first_name">first_name<font color='#FF0000'>*</font></string>
+    <string name="last_name">last_name<font color='#FF0000'>*</font></string>
+    <string name="date_of_birth">date_of_birth<font color='#FF0000'>*</font></string>
+    <string name="gender">Gender<font color='#FF0000'>*</font></string>
 </resources>

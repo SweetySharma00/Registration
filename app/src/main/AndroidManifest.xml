@@ -13,7 +13,9 @@
         android:theme="@style/Theme.Registration">
         <activity
             android:name=".Activity.PersonalDetails"
-            android:exported="false" />
+            android:exported="false" >
+
+        </activity>
         <activity
             android:name=".Activity.Terms_Condotions"
             android:exported="false" />
