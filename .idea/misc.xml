@@ -4,12 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/retrofitapi/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/drawable/shape.xml" value="0.1505" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_address_and_identification.xml" value="0.25" />
         <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_personal_details.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_signup.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_review_details.xml" value="0.17114695340501793" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_security_details.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_signup.xml" value="0.22" />
         <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_signup_verify.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_terms_condotions.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/activity_terms_condotions.xml" value="0.1" />
         <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/custom_common_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/layout/row_spinner.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/NIPC-36/AndroidStudioProjects/Registration/app/src/main/res/xml/file_paths.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

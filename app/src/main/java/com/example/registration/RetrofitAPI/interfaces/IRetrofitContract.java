@@ -33,20 +33,31 @@ public interface IRetrofitContract {
 
     @Headers({"Content-Type:application/json", "Accept:application/json"})
     @POST("api/verify-otp")
-    Observable<SignUpResponse> Verify(
+    Observable<Response<SignUpResponse>> Verify(
             @Header("Access-Medium")  String AcsessMedium,
             @Header("Platform-Type") String PlatformType,
             @Header("Client-Type") String clientType,
             @Body OtpRequest otpRequest);
     @Multipart
-    @POST("/api/register-personal")
-    Observable<SignUpResponse> Details(
+    @POST("api/register-personal")
+    Observable<Response<SignUpResponse>> Details(
             @Header("Access-Medium")  String AcsessMedium,
             @Header("Platform-Type") String PlatformType,
             @Header("Client-Type") String clientType,
-            @Header("Content-Type") String ContentType,
+//            @Header("Content-Type") String ContentType,
 //            @PartMap PersonalDetailRequest personalDetailRequest
-            @PartMap() Map<String,RequestBody> map,
+            @PartMap Map<String,RequestBody> map,
             @Part MultipartBody.Part doc
             );
+    @Multipart
+    @POST("api/register-address")
+    Observable<Response<SignUpResponse>> AddressDetails(
+            @Header("Access-Medium")  String AcsessMedium,
+            @Header("Platform-Type") String PlatformType,
+            @Header("Client-Type") String clientType,
+//            @Header("Content-Type") String ContentType,
+//            @PartMap PersonalDetailRequest personalDetailRequest
+            @PartMap Map<String,RequestBody> map,
+            @Part MultipartBody.Part doc
+    );
 }

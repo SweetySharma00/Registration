@@ -76,17 +76,32 @@ public class SignUpPresenterImpl implements ISignUpPresenter{
         String ClientType=((BaseActivity)iSignUpView).getClientType();
         RetrofitFactory retrofitFactory = RetrofitFactory.getInstance();
         IRetrofitContract iRetrofitContract = retrofitFactory.getRetrofitContract(RetroUtils.APP_ENV);
-        Observable<SignUpResponse> signUpResponseOb = iRetrofitContract.Verify(digest,PlatformType,ClientType,otp);
-        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<SignUpResponse>() {
+        Observable<Response<SignUpResponse>> signUpResponseOb = iRetrofitContract.Verify(digest,PlatformType,ClientType,otp);
+        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<SignUpResponse>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(SignUpResponse signUpResponse) {
-                iSignUpView.setValidateResponse(signUpResponse);
+            public void onNext(Response<SignUpResponse> signUpResponse) {
+                if (signUpResponse.errorBody()==null){
+                    String digest = signUpResponse.headers().get("Access-Medium");
+                    iSignUpView.setDigest(digest);
+                    iSignUpView.setValidateResponse(signUpResponse.body());
+                }else{iSignUpView.setError(new Throwable());
+                }
+//                iSignUpView.setResponse(signUpResponse.body());
             }
+//            public void onNext(Response<SignUpResponse> signUpResp) {
+//                if (signUpResp.errorBody()==null){
+//                    String digest = signUpResp.headers().get("Access-Medium");
+//                    iSignUpView.setDigest(digest);
+//                    iSignUpView.setValidateResponse(signUpResp.body());
+//                }else{iSignUpView.setError(new Throwable());
+//                }
+////                iSignUpView.setValidateResponse(signUpResponse.body());
+//            }
 
             @Override
             public void onError(Throwable e) {

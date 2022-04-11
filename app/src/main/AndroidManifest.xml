@@ -3,7 +3,8 @@
     package="com.example.registration">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,6 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Registration">
         <activity
+            android:name=".Activity.ReviewDetails"
+            android:exported="false" >
+        </activity>
+        <activity
+            android:name=".Activity.SecurityDetails"
+            android:exported="false">
+
+        </activity>
+        <activity
+            android:name=".Activity.AddressAndIdentification"
+            android:exported="false">
+
+        </activity>
+        <activity
             android:name=".Activity.PersonalDetails"
             android:exported="false" >
 
@@ -19,6 +34,15 @@
         <activity
             android:name=".Activity.Terms_Condotions"
             android:exported="false" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.registration.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity
             android:name=".Activity.Signup"
             android:exported="true">

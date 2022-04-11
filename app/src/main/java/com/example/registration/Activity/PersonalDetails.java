@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,10 +35,10 @@ import okhttp3.RequestBody;
 
 public class PersonalDetails extends BaseActivity implements Validators,View.OnClickListener,
         IPersonalDetailView,View.OnTouchListener {
-    TextInputLayout textFirstName, textLastName, textDOB, textGender, text1, text2;
-    EditText edtFirstName, edtLastName, edtDOB, edt1, edt2, edtMiddleName;
-    AutoCompleteTextView edtGender;
-    String item1, item2, item3;
+    TextInputLayout textFirstName, textLastName, textDOB, textGender, textCOB, textNationality;
+    EditText edtFirstName, edtLastName, edtDOB,  edtMiddleName;
+    AutoCompleteTextView  edtNationality,edtCOB,edtGender;
+    String Gender,Gender1, item2, item3;
     Button btnSaveContinue, btnBack;
     PersonalDetailRequest personalDetailRequest;
     private IPersonalDetailPresenter iPersonalDetailPresenter;
@@ -58,13 +59,13 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
         edtMiddleName = findViewById(R.id.edtMiddleName);
         edtGender = findViewById(R.id.edtGender);
         textGender = findViewById(R.id.txtGender);
-        text1 = findViewById(R.id.txt1);
-        text2 = findViewById(R.id.txt2);
-        edt1 = findViewById(R.id.edt1);
-        edt2 = findViewById(R.id.edt2);
+        textCOB = findViewById(R.id.txtCOB);
+        textNationality = findViewById(R.id.txtNationality);
+        edtCOB = findViewById(R.id.edtCOB);
+        edtNationality = findViewById(R.id.edtNationality);
         setGender();
-        setText1();
-        setText2();
+        setTextCOB();
+        setNationality();
         btnSaveContinue = findViewById(R.id.btnSaveContinue);
         btnSaveContinue.setOnClickListener(this);
         btnBack = findViewById(R.id.btnBack);
@@ -75,11 +76,11 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
     public boolean Validatee() {
         if (edtFirstName.getText().toString().length() == 0) {
             textFirstName.setError("This field must be filled");
-            textLastName.setError("This field must be filled");
-            textDOB.setError("This field must be filled");
-            textGender.setError("This field must be filled");
-            text1.setError("This field must be filled");
-            text2.setError("This field must be filled");
+//            textLastName.setError("This field must be filled");
+//            textDOB.setError("This field must be filled");
+//            textGender.setError("This field must be filled");
+//            textCOB.setError("This field must be filled");
+//            textNationality.setError("This field must be filled");
 //            edtFirstName.setTextColor(Color.RED);
             return false;
         } else if (edtLastName.getText().toString().length() == 0) {
@@ -88,13 +89,14 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
         } else if (edtDOB.getText().length() == 0) {
             textDOB.setError("This field must be filled");
             return false;
-        } else if (edtGender.getText().length() == 0) {
+        }
+        else if (edtGender.getText().toString().equals("No Gender Selected")) {
             textGender.setError("This field must be filled");
             return false;
-        } else if (edt1.getText().length() == 0 ) {
+        } else if (edtCOB.getText().length() == 0 ) {
             textGender.setError("This field must be filled");
             return false;
-        } else if (edt2.getText().length() == 0) {
+        } else if (edtNationality.getText().length() == 0) {
             textGender.setError("This field must be filled");
             return false;
         } else {
@@ -109,23 +111,23 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
 
     private void setGender() {
         String[] items = {"No Gender Selected", "Male", "Female"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner, R.id.textView2, items);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner, R.id.textView1, items);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         edtGender.setAdapter(arrayAdapter);
         edtGender.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                item1 = adapterView.getItemAtPosition(i).toString();
+                Gender = adapterView.getItemAtPosition(i).toString();
             }
         });
     }
 
-    private void setText1() {
-        String[] items = {"No GenderSelected", "Male", "Female"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner, R.id.textView2, items);
+    private void setTextCOB() {
+        String[] items = {"Jamaica","Afghanistan","Aland Islands","Albania","Algeria","American Samoa","Andorra","Angola"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner, R.id.textView1, items);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        edtGender.setAdapter(arrayAdapter);
-        edtGender.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        edtCOB.setAdapter(arrayAdapter);
+        edtCOB.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 item2 = adapterView.getItemAtPosition(i).toString();
@@ -133,12 +135,12 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
         });
     }
 
-    private void setText2() {
-        String[] items = {"No GenderSelected", "Male", "Female"};
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner, R.id.textView2, items);
+    private void setNationality() {
+        String[] items = {"Jamaica","Afghanistan","Aland Islands","Albania","Algeria","American Samoa","Andorra","Angola"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.row_spinner, R.id.textView1, items);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        edtGender.setAdapter(arrayAdapter);
-        edtGender.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        edtNationality.setAdapter(arrayAdapter);
+        edtNationality.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 item3 = adapterView.getItemAtPosition(i).toString();
@@ -146,41 +148,79 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
         });
     }
 
+//    private void showDatePicker() {
+//        final Calendar calendar = Calendar.getInstance();
+//        mYear = calendar.get(Calendar.YEAR);
+//        mMonth = calendar.get(Calendar.MONTH);
+//        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+//        final DatePickerDialog datePickerDialog = new DatePickerDialog(PersonalDetails.this, (view, year, month, dayOfMonth) -> {
+////                String day= String.valueOf(dayOfMonth);
+////                String Month=String.valueOf(month+1);
+////                if(day.length()==1)
+////                    day="0"+day;
+////                if(Month.length()==1)
+////                    Month="0"+Month;
+//            Calendar userAge = new GregorianCalendar(year, month, dayOfMonth);
+//            Calendar minAdultAge = new GregorianCalendar();
+//            minAdultAge.add(Calendar.YEAR, -18);
+//            if (minAdultAge.before(userAge)) {
+//                textDOB.setError("Age must be 18 years or above");
+//                dobError = false;
+//            } else {
+//                dobError = true;
+//            }
+//            edtDOB.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+//            // edtDOB.setText(day + "" + "-" +(month + 1) + "" + "-" + year + "");
+//        }, mYear, mMonth, mDay);
+//        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 10000);
+//        datePickerDialog.show();
+//
+//    }
+
+
     private void showDatePicker() {
         final Calendar calendar = Calendar.getInstance();
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH);
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(PersonalDetails.this, (view, year, month, dayOfMonth) -> {
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(PersonalDetails.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 //                String day= String.valueOf(dayOfMonth);
 //                String Month=String.valueOf(month+1);
 //                if(day.length()==1)
 //                    day="0"+day;
 //                if(Month.length()==1)
 //                    Month="0"+Month;
-            Calendar userAge = new GregorianCalendar(year, month, dayOfMonth);
-            Calendar minAdultAge = new GregorianCalendar();
-            minAdultAge.add(Calendar.YEAR, -18);
-            if (minAdultAge.before(userAge)) {
-                textDOB.setError("Age must be 18 years or above");
-                dobError = false;
-            } else {
-                dobError = true;
-            }
-            edtDOB.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
-            // edtDOB.setText(day + "" + "-" +(month + 1) + "" + "-" + year + "");
-        }, mYear, mMonth, mDay);
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 10000);
+                        Calendar userAge = new GregorianCalendar(year,month,dayOfMonth);
+                        Calendar minAdultAge = new GregorianCalendar();
+                        minAdultAge.add(Calendar.YEAR, -18);
+                        if (minAdultAge.before(userAge)) {
+                            textDOB.setError("Age must be 18 years or above");
+                            dobError=false;
+                        }
+                        else{
+                            dobError=true;
+                        }
+                        edtDOB.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                        // edtDOB.setText(day + "" + "-" +(month + 1) + "" + "-" + year + "");
+                    }
+                },
+                mYear,
+                mMonth,
+                mDay);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()-10000);
         datePickerDialog.show();
 
     }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSaveContinue:
                 if (Validatee()) {
-                    iPersonalDetailPresenter=new PersonalDetailPresenterImpl();
 //                    hitApi();
                     saveData();
 
@@ -194,6 +234,14 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
                 break;
         }
     }
+    private void Gender(){
+        if(Gender == "Male"){
+            Gender1="M";
+        }
+        else{
+            Gender1="F";
+        }
+    }
     private void saveData() {
 //        String FirstName =edtFirstName.getText().toString(),
 //                MiddleName=edtMiddleName.getText().toString(),
@@ -204,14 +252,26 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
 //                YN="true",
 //                nationality="Indian",
 //                profileImage=null;
-        RequestBody FirstName ,LastName;
+                  Gender();
+
+        iPersonalDetailPresenter=new PersonalDetailPresenterImpl();
         iPersonalDetailPresenter.setView(this);
         HashMap<String,RequestBody> map=new HashMap<>();
+//        RequestBody FirstName;
 //        map.put("firstName",createPartFromString("hiii"));
 //        if(!TextUtils.isEmpty(edtFirstName.getText().toString()))
 
-            FirstName = RequestBody.create(okhttp3.MediaType.parse("text/plain"), edtFirstName.getText().toString());
-//            FirstName=RequestBody.create(MediaType.parse("text/plain"), "Your Text");
+//            FirstName = RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtFirstName.getText().toString());
+             map.put("firstName",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtFirstName.getText().toString()));
+             map.put("middleName",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtMiddleName.getText().toString()));
+             map.put("lastName",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtLastName.getText().toString()));
+             map.put("dob",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtDOB.getText().toString()));
+             map.put("genderCD",RequestBody.create(okhttp3.MediaType.parse("text/plain"),Gender1));
+             map.put("countryOfBirthCD",RequestBody.create(okhttp3.MediaType.parse("text/plain"),"IN"));
+//             map.put("profileImage"RequestBody.create(okhttp3.MediaType.parse("image/*"),null);
+             map.put("acceptTermsYN",RequestBody.create(okhttp3.MediaType.parse("text/plain"),"true"));
+             map.put("nationality",RequestBody.create(okhttp3.MediaType.parse("text/plain"),"Indian"));
+//            FirstName=edtFirstName.getText().toString();
 //        else
 //            FirstName=RequestBody.create(okhttp3.MediaType.parse("text/plain"), "");
 //            textFirstName.setError("This Field must be filled");
@@ -239,7 +299,7 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
 //            comments=RequestBody.create(okhttp3.MediaType.parse("text/plain"), edtComments.getText().toString());
 //        else
 //            comments=RequestBody.create(okhttp3.MediaType.parse("text/plain"), "");
-        map.put("firstName",FirstName);
+
 //        map.put("middleName",MiddleName);
 //        map.put("lastName",LastName);
 //        map.put("dob",DOB);
@@ -273,6 +333,9 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
     public void setResponse(SignUpResponse signUpResponse) {
         if (signUpResponse != null && signUpResponse.getMessage() != null && signUpResponse.getMessage().getSuccessMessage() != null && signUpResponse.getMessage().getSuccessMessage().length() != 0) {
             Toast.makeText(this, signUpResponse.getMessage().getSuccessMessage(), Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(PersonalDetails.this, AddressAndIdentification.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
 
         } else {
             assert signUpResponse != null;
@@ -293,7 +356,16 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
 
     @Override
     public String getDigest() {
+//        Toast.makeText(this,ExtraUtils.DIGEST, Toast.LENGTH_SHORT).show();
         return ExtraUtils.DIGEST;
+    }
+
+    @Override
+    public void setDigest(String digest) {
+        ExtraUtils.DIGEST = digest;
+        Toast.makeText(this, "Digest", Toast.LENGTH_SHORT).show();
+//        ExtraUtils.DIGEST=digest;
+
     }
 
     @Override

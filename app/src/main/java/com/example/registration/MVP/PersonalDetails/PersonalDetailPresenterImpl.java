@@ -1,9 +1,9 @@
 package com.example.registration.MVP.PersonalDetails;
 
 import com.example.registration.Activity.BaseActivity;
+import com.example.registration.MVP.Signup.ISignUpView;
 import com.example.registration.RetrofitAPI.api.RetrofitFactory;
 import com.example.registration.RetrofitAPI.interfaces.IRetrofitContract;
-import com.example.registration.RetrofitAPI.models.request.PersonalDetailRequest;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 import com.example.registration.Utils.RetroUtils;
 
@@ -28,19 +28,25 @@ public class PersonalDetailPresenterImpl implements IPersonalDetailPresenter {
 //        PersonalDetailRequest personalDetailRequest = iPersonalDetailView.getRequest();
         String PlatformType = ((BaseActivity) iPersonalDetailView).getPlatformType();
         String ClientType = ((BaseActivity) iPersonalDetailView).getClientType();
-        String ContentType = ((BaseActivity) iPersonalDetailView).getContentType();
+//        String ContentType = ((BaseActivity) iPersonalDetailView).getContentType();
         RetrofitFactory retrofitFactory = RetrofitFactory.getInstance();
         IRetrofitContract iRetrofitContract = retrofitFactory.getRetrofitContract(RetroUtils.APP_ENV);
-        Observable<SignUpResponse> signUpResponseOb = iRetrofitContract.Details(digest, PlatformType, ClientType, ContentType,map,doc);
-        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<SignUpResponse>() {
+        Observable<Response<SignUpResponse>> signUpResponseOb = iRetrofitContract.Details(digest,PlatformType, ClientType,map,doc);
+        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<SignUpResponse>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(SignUpResponse signUpResponse) {
-                iPersonalDetailView.setResponse(signUpResponse);
+            public void onNext(Response<SignUpResponse> signUpResponse) {
+//                iPersonalDetailView.setResponse(signUpResponse.body());
+                if (signUpResponse.errorBody()==null){
+                    String digest = signUpResponse.headers().get("Access-Medium");
+                    iPersonalDetailView.setDigest(digest);
+                    iPersonalDetailView.setResponse(signUpResponse.body());
+                }else{iPersonalDetailView.setError(new Throwable());
+                }
             }
 
             @Override

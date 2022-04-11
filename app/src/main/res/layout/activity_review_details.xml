@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.ReviewDetails">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingHorizontal="10sp"
+          android:paddingVertical="20sp">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Review Details"
+              android:layout_marginVertical="10sp"
+              android:textSize="24sp"
+              android:textStyle="bold"
+              android:textColor="@color/green"
+              android:textAlignment="center"
+              android:layout_gravity="center"
+              android:layout_marginBottom="10sp"/>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingHorizontal="10sp"
+              android:weightSum="2"
+              android:layout_marginBottom="10sp">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="Personal Details"
+              android:layout_marginVertical="10sp"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:textColor="@color/green" />
+
+              <ImageView
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_gravity="start"
+                  android:layout_weight="1"
+                  android:src="@drawable/ic_edit_icon" />
+          </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="First Name:" />
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="First Name:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Middle Name:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Last Name:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Date Of Birth:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Gender:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Country Of Birth:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Nationality:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingHorizontal="10sp"
+              android:weightSum="2"
+              android:layout_marginBottom="10sp">
+              <TextView
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1.6"
+                  android:text="Permanent Address And\nIdentification"
+                  android:layout_marginVertical="10sp"
+                  android:textSize="18sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/green" />
+
+              <ImageView
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_gravity="start"
+                  android:layout_weight="0.4"
+                  android:src="@drawable/ic_edit_icon" />
+          </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Street Address:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Apartment/Suite:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Parish:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="City/Town:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="District:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Email Address:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="TRN:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="ID Type:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="ID Number:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="ID Expiration Date:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Opted For Cash Recharge:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Tier Details:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingHorizontal="10sp"
+              android:weightSum="2"
+              android:layout_marginBottom="10sp">
+              <TextView
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:text="Security Details"
+                  android:layout_marginVertical="10sp"
+                  android:textSize="18sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/green" />
+
+              <ImageView
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_gravity="start"
+                  android:layout_weight="1"
+                  android:src="@drawable/ic_edit_icon" />
+          </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Question1:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Question2:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingHorizontal="10sp"
+              android:weightSum="2"
+              android:layout_marginBottom="10sp">
+              <TextView
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:text="Miscellaneous"
+                  android:layout_marginVertical="10sp"
+                  android:textSize="18sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/green" />
+
+              <ImageView
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_gravity="start"
+                  android:layout_weight="1"
+                  android:src="@drawable/ic_edit_icon" />
+          </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Are you a Politically Exposed Person\n(PEP)?:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Are you the family member of a Politically\nExposed Person(PEP)?:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="Are you a close associate of a Politically\nExposed Person(PEP)?:"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <Button
+              android:id="@+id/btnSubmit"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:backgroundTint="@color/green"
+              android:text="Submit"
+              android:textAllCaps="false"
+              android:layout_marginHorizontal="25sp"
+              android:textColor="@color/white" />
+          <Button
+              android:id="@+id/btnBack"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:backgroundTint="@color/grey"
+              android:text="Back"
+              android:layout_marginHorizontal="25sp"
+              android:textAllCaps="false"
+              android:textColor="@color/white" />
+
+      </LinearLayout>
+</ScrollView>

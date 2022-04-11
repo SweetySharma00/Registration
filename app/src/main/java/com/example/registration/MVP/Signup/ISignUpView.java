@@ -10,6 +10,7 @@ public interface ISignUpView {
     void setError(Throwable error);
     SignupRequest getRequest();
     void setDigest(String digest);
+//    void setDigestOtp(String digest);
      String getDigest();
     void setValidateResponse(SignUpResponse signUpResponse);
     OtpRequest getOTP();

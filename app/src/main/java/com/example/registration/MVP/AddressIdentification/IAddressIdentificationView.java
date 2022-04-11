@@ -1,13 +1,12 @@
-package com.example.registration.MVP.PersonalDetails;
+package com.example.registration.MVP.AddressIdentification;
 
 import com.example.registration.RetrofitAPI.models.request.PersonalDetailRequest;
-import com.example.registration.RetrofitAPI.models.request.SignupRequest;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 
-public interface IPersonalDetailView {
+public interface IAddressIdentificationView {
+
     void setResponse(SignUpResponse signUpResponse);
     void setError(Throwable error);
-    PersonalDetailRequest getRequest();
     String getDigest();
     void setDigest(String digest);
 }

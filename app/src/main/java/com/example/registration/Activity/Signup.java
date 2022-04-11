@@ -311,11 +311,18 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     @Override
     public void setDigest(String digest) {
         ExtraUtils.DIGEST = digest;
-//        Toast.makeText(this, "digest", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "digest", Toast.LENGTH_SHORT).show();
     }
+
+//    @Override
+//    public void setDigestOtp(String digest) {
+//        ExtraUtils.DIGEST = digest;
+//        Toast.makeText(this, "digest for otp", Toast.LENGTH_SHORT).show();
+//    }
 
     @Override
     public String getDigest() {
+
         return ExtraUtils.DIGEST;
     }
 

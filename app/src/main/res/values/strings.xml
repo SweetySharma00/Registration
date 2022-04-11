@@ -4,4 +4,33 @@
     <string name="last_name">last_name<font color='#FF0000'>*</font></string>
     <string name="date_of_birth">date_of_birth<font color='#FF0000'>*</font></string>
     <string name="gender">Gender<font color='#FF0000'>*</font></string>
+    <string name="permanent_address_and_nidentification">Permanent Address And\nIdentification</string>
+    <string name="street_address">Street Address<font color='#FF0000'>*</font></string>
+    <string name="parish">Parish<font color='#FF0000'>*</font></string>
+    <string name="city_town">City/Town<font color='#FF0000'>*</font></string>
+    <string name="district">District<font color='#FF0000'>*</font></string>
+    <string name="email_address">Email Address<font color='#FF0000'>*</font></string>
+    <string name="trn">TRN<font color='#FF0000'>*</font></string>
+    <string name="id_type">ID Type<font color='#FF0000'>*</font></string>
+    <string name="id_number">ID Number<font color='#FF0000'>*</font></string>
+    <string name="id_expiration_date">ID Expiration Date<font color='#FF0000'>*</font></string>
+    <string name="click_here_to_view_examples_of_proper_nupload_or_incorrect_upload"><u>Click here to view examples of proper\nupload or incorrect upload</u></string>
+    <string name="select_tier_details">Select Tier details<font color='#FF0000'>*</font></string>
+    <string name="please_click_here_for_additional_ninformation_on_tiers"><u>*Please Click Here for additional\nInformation on tiers</u></string>
+    <string name="please_provide_source_of_funds_proof">Please Provide Source Of Funds Proof<font color='#FF0000'>*</font></string>
+    <string name="occupation_line_of_business">Occupation/Line of Business<font color='#FF0000'>*</font></string>
+    <string name="name_of_bank">Name Of Bank<font color='#FF0000'>*</font></string>
+    <string name="account_type">Account Type<font color='#FF0000'>*</font></string>
+    <string name="bank_branch">Bank Branch<font color='#FF0000'>*</font></string>
+    <string name="account_number">Account Number<font color='#FF0000'>*</font></string>
+    <string name="please_provide_address_proof">Please Provide Address Proof<font color='#FF0000'>*</font></string>
+    <string name="question">Question<font color='#FF0000'>*</font></string>
+    <string name="answer">Answer<font color='#FF0000'>*</font></string>
+    <string name="confirm_account_pin">Confirm Account Pin<font color='#FF0000'>*</font></string>
+    <string name="account_pin">Account Pin<font color='#FF0000'>*</font></string>
+    <string name="are_you_politically_exposed_person_n_pep">Are you Politically Exposed Person\n(PEP)<font color='#FF0000'>*</font></string>
+    <string name="are_you_the_family_member_of_a_npolitically_exposed_person_pep">Are you the family member of a\nPolitically Exposed Person(PEP)<font color='#FF0000'>*</font></string>
+    <string name="are_you_close_associate_of_a_npolitically_exposed_person_pep">Are you close associate of a\nPolitically Exposed Person(PEP)<font color='#FF0000'>*</font></string>
+    <string name="nationality">Nationality<font color='#FF0000'>*</font></string>
+    <string name="country_of_birth">Country Of Birth<font color='#FF0000'>*</font></string>
 </resources>
