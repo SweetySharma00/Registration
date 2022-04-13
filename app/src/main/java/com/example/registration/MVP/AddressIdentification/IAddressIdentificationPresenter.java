@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 
 public interface IAddressIdentificationPresenter {
 
-    void hitDetails(HashMap<String, RequestBody> map, MultipartBody.Part doc);
+    void hitDetails(HashMap<String, RequestBody> map, MultipartBody.Part doc, MultipartBody.Part docBack,
+                    MultipartBody.Part sourceFunds,MultipartBody.Part addressProofs);
     void setView(IAddressIdentificationView iAddressIdentificationView);
 }

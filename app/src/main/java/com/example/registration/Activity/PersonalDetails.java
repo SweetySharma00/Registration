@@ -14,12 +14,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.registration.Interface.Validators;
 import com.example.registration.MVP.PersonalDetails.IPersonalDetailPresenter;
 import com.example.registration.MVP.PersonalDetails.IPersonalDetailView;
 import com.example.registration.MVP.PersonalDetails.PersonalDetailPresenterImpl;
 import com.example.registration.R;
 import com.example.registration.RetrofitAPI.models.request.PersonalDetailRequest;
+import com.example.registration.RetrofitAPI.models.response.PersonalDetailResponse;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 import com.example.registration.Utils.ExtraUtils;
 import com.google.android.material.textfield.TextInputLayout;
@@ -50,6 +53,8 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_details);
+        getSupportActionBar().hide();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         textFirstName = findViewById(R.id.txtFirstName);
         edtFirstName = findViewById(R.id.edtFirstName);
         edtLastName = findViewById(R.id.edtLastName);
@@ -58,11 +63,14 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
         textDOB = findViewById(R.id.txtDOB);
         edtMiddleName = findViewById(R.id.edtMiddleName);
         edtGender = findViewById(R.id.edtGender);
+        edtGender.setOnClickListener(this);
         textGender = findViewById(R.id.txtGender);
         textCOB = findViewById(R.id.txtCOB);
         textNationality = findViewById(R.id.txtNationality);
         edtCOB = findViewById(R.id.edtCOB);
+        edtCOB.setOnClickListener(this);
         edtNationality = findViewById(R.id.edtNationality);
+        edtNationality.setOnClickListener(this);
         setGender();
         setTextCOB();
         setNationality();
@@ -219,6 +227,11 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.edtNationality:
+            case R.id.edtGender:
+            case R.id.edtCOB:
+                hideKeyboard(this);
+                break;
             case R.id.btnSaveContinue:
                 if (Validatee()) {
 //                    hitApi();
@@ -330,17 +343,19 @@ public class PersonalDetails extends BaseActivity implements Validators,View.OnC
 //    }
 
     @Override
-    public void setResponse(SignUpResponse signUpResponse) {
-        if (signUpResponse != null && signUpResponse.getMessage() != null && signUpResponse.getMessage().getSuccessMessage() != null && signUpResponse.getMessage().getSuccessMessage().length() != 0) {
-            Toast.makeText(this, signUpResponse.getMessage().getSuccessMessage(), Toast.LENGTH_LONG).show();
+    public void setResponse(PersonalDetailResponse Response) {
+        if (Response != null && Response.getMessage() != null && Response.getMessage().getSuccessMessage() != null && Response.getMessage().getSuccessMessage().length() != 0) {
+            ExtraUtils.details=Response;
+//            Toast.makeText(this, Response, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, Response.getMessage().getSuccessMessage(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(PersonalDetails.this, AddressAndIdentification.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
         } else {
-            assert signUpResponse != null;
-            assert signUpResponse.getMessage() != null;
-            Toast.makeText(this, signUpResponse.getMessage().getErrorMessage(), Toast.LENGTH_LONG).show();
+            assert Response != null;
+            assert Response.getMessage() != null;
+            Toast.makeText(this,Response.getMessage().getErrorMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

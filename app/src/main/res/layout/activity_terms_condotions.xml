@@ -5,8 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="30sp"
     tools:context=".Activity.Terms_Condotions">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/txtt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10sp"
+            android:gravity="center"
+            android:text="Registration (Step 1/5)"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_marginTop="45dp"
+            android:background="@color/green"
+            android:outlineSpotShadowColor="@color/grey" />
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,6 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="30sp"
                  android:text="abcdefghijklmnopqrstuvwxyz"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -35,6 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
+        android:layout_marginHorizontal="30sp"
         android:text="Accept Terms &amp; Conditions"
         android:textAllCaps="false"
         android:textColor="@color/white" />
@@ -43,6 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/grey"
+        android:layout_marginHorizontal="30sp"
         android:text="Decline"
         android:textAllCaps="false"
         android:textColor="@color/white" />

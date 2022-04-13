@@ -2,10 +2,12 @@ package com.example.registration.Activity;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.example.registration.Model.SetOrientation;
+import com.example.registration.RetrofitAPI.models.response.AddressIdentificationResponse;
 import com.example.registration.Utils.CompressFile;
 import com.example.registration.Utils.ExtraUtils;
 import com.example.registration.Utils.FileUtils;
@@ -44,6 +46,7 @@ import com.example.registration.MVP.AddressIdentification.IAddressIdentification
 import com.example.registration.MVP.PersonalDetails.PersonalDetailPresenterImpl;
 import com.example.registration.R;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -70,15 +73,16 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
     AutoCompleteTextView edtParish,edtCity,edtDistrict,edtIDtype,edtSelectTier,edtBankName,edtAccType;
     Button btnSaveContinue,btnBack;
     String Parish,City,District,IDType,AccType,BankName,Tier,T;
-    ImageView imageFront;
-    TextView txtFront;
+    ImageView imageFront,imageBack,imageSourceFunds,imageAddressProof;
+    TextView txtFront,txtBack,txtAddress,txtSource;
+    MaterialCardView FrontID,BackID,AddressProof,SourceFunds;
     LinearLayout Linear1,LinearSourceFunds,LinearAddressProof,Linear2,Linear3,Linear4;
     RadioButton radioButton1,radioButton2;
     Boolean radio1=true;
     IAddressIdentificationPresenter iAddressIdentificationPresenter;
-    private MultipartBody.Part document;
+    private MultipartBody.Part document,documentBack,sourceOfFund,addressProof;
     private static final int ASK_MULTIPLE_PERMISSION_REQUEST_CODE=0;
-    private int CAMERA = 2, GALLERY = 1;
+    private int CAMERA = 2, GALLERY_FRONT = 1,GALLERY_BACK=2,GALLERY_SOURCE=3,GALLERY_ADDRESS=4;
     Bitmap photo = null;
     String currentPhotoPath = "";
     Intent intent = null;
@@ -86,14 +90,18 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
     private String profile_img = "profileImage";
     private String OptforCash="false";
     private static final int FILE_SELECT_CODE = 0;
-    File file;
+    File file,file_back,file_SourceFunds,file_AddressProof;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_and_identification);
-
+        getSupportActionBar().hide();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         txtFront=findViewById(R.id.txtFront);
+        txtBack=findViewById(R.id.txtBack);
+        txtAddress=findViewById(R.id.txtAddress);
+        txtSource=findViewById(R.id.txtSource);
         txtStreetAdd=findViewById(R.id.txtStreetAdd);
         txtApartment=findViewById(R.id.txtApartment);
         txtParish=findViewById(R.id.txtParish);
@@ -138,6 +146,9 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
         setAccType();
         setTier();
         imageFront=findViewById(R.id.imageFront);
+        imageBack=findViewById(R.id.imageBack);
+        imageAddressProof=findViewById(R.id.imageAddressProof);
+        imageSourceFunds=findViewById(R.id.imageSourceFunds);
         txtFront=findViewById(R.id.txtFront);
         Linear1=findViewById(R.id.Linear1);
         Linear1.setVisibility(View.GONE);
@@ -156,6 +167,21 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
         radioButton1.setChecked(true);
         radioButton2=findViewById(R.id.radioButton2);
         radioButton2.setOnClickListener(this);
+        FrontID=findViewById(R.id.FrontID);
+        FrontID.setOnClickListener(this);
+        BackID=findViewById(R.id.BackID);
+        BackID.setOnClickListener(this);
+        SourceFunds=findViewById(R.id.SourceFunds);
+        SourceFunds.setOnClickListener(this);
+        AddressProof=findViewById(R.id.AddressProof);
+        AddressProof.setOnClickListener(this);
+        edtParish.setOnClickListener(this);
+        edtCity.setOnClickListener(this);
+        edtDistrict.setOnClickListener(this);
+        edtIDtype.setOnClickListener(this);
+        edtSelectTier.setOnClickListener(this);
+        edtBankName.setOnClickListener(this);
+        edtAccType.setOnClickListener(this);
     }
     private void setParish() {
         String[] items = {"St.Mary","Westmoreland","Trelawny","St.Ann","Manchester","St.Andrew","Clarendon"};
@@ -256,7 +282,7 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
             Linear3.setVisibility(View.GONE);
             Linear4.setVisibility(View.GONE);
         }
-        if(Tier =="Tier3"){
+        if(Tier =="Tier 3"){
             Linear1.setVisibility(View.VISIBLE);
             Linear2.setVisibility(View.VISIBLE);
             Linear3.setVisibility(View.VISIBLE);
@@ -324,7 +350,18 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
+            case R.id.edtParish:
+            case R.id.edtCity:
+            case R.id.edtDistrict:
+            case R.id.edtIDtype:
+            case R.id.edtSelectTier:
+            case R.id.edtBankName:
+            case R.id.edtAccType:
+                hideKeyboard(this);
+            break;
             case R.id.radioButton1:
+                Linear1.setVisibility(View.GONE);
+                OptforCash="false";
                 break;
             case R.id.radioButton2:
                 Linear1.setVisibility(View.VISIBLE);
@@ -338,7 +375,71 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
                 break;
             case R.id.btnBack:
                 Toast.makeText(this, "Cancelling", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AddressAndIdentification.this, PersonalDetails.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
+            case R.id.FrontID:
+                hideKeyboard(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(AddressAndIdentification.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        showPictureDialog(1);
+
+
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
+                    }
+                } else {
+                    showPictureDialog(1);
+                }
+
+                break;
+            case R.id.BackID:
+                hideKeyboard(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(AddressAndIdentification.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        showPictureDialog(2);
+
+
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
+                    }
+                } else {
+                    showPictureDialog(2);
+                }
+
+                break;
+            case R.id.SourceFunds:
+                hideKeyboard(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(AddressAndIdentification.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        showPictureDialog(3);
+
+
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
+                    }
+                } else {
+                    showPictureDialog(3);
+                }
+
+                break;
+            case R.id.AddressProof:
+                hideKeyboard(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(AddressAndIdentification.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        showPictureDialog(4);
+
+
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
+                    }
+                } else {
+                    showPictureDialog(4);
+                }
+
+                break;
+
         }
     }
     private void hitapi(){
@@ -364,24 +465,44 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
             document=MultipartBody.Part.createFormData("document", file.getName(), RequestBody.create(MediaType.parse("*/*"), file));
         }
 
+        if(file_back!=null){
+            documentBack=MultipartBody.Part.createFormData("documentBack", file_back.getName(), RequestBody.create(MediaType.parse("*/*"), file_back));
+        }
+
 
 
 //
 
         map.put("optForCashRecharge",RequestBody.create(okhttp3.MediaType.parse("text/plain"),OptforCash));
+        Toast.makeText(this, OptforCash, Toast.LENGTH_SHORT).show();
         if(OptforCash == "true"){
             Tier();
             map.put("tier",RequestBody.create(okhttp3.MediaType.parse("text/plain"),T));
             if(T=="2"){
+                if(file_SourceFunds!=null){
+                    sourceOfFund=MultipartBody.Part.createFormData("sourceOfFund", file_SourceFunds.getName(), RequestBody.create(MediaType.parse("*/*"), file_SourceFunds));
+                }
 //                map.put("sourceOfFund",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtBankBranch.getText().toString()));
                 map.put("occupation",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtOccupation.getText().toString()));
             }
             if(T=="3"){
+                if(file_SourceFunds!=null){
+                    sourceOfFund=MultipartBody.Part.createFormData("sourceOfFund", file_SourceFunds.getName(), RequestBody.create(MediaType.parse("*/*"), file_SourceFunds));
+                }
               //  map.put("sourceOfFund",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtBankBranch.getText().toString()));
                 map.put("occupation",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtOccupation.getText().toString()));
+                if(file_AddressProof!=null){
+                    addressProof=MultipartBody.Part.createFormData("addressProof", file_AddressProof.getName(), RequestBody.create(MediaType.parse("*/*"), file_AddressProof));
+                }
                 //map.put("addressProof",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtBankBranch.getText().toString()));
             }
             if(T =="4"){
+                if(file_SourceFunds!=null){
+                    sourceOfFund=MultipartBody.Part.createFormData("sourceOfFund", file_SourceFunds.getName(), RequestBody.create(MediaType.parse("*/*"), file_SourceFunds));
+                }
+                if(file_AddressProof!=null){
+                    addressProof=MultipartBody.Part.createFormData("addressProof", file_AddressProof.getName(), RequestBody.create(MediaType.parse("*/*"), file_AddressProof));
+                }
                 //  map.put("sourceOfFund",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtBankBranch.getText().toString()));
                 map.put("occupation",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtOccupation.getText().toString()));
                 //map.put("addressProof",RequestBody.create(okhttp3.MediaType.parse("text/plain"),edtBankBranch.getText().toString()));
@@ -396,7 +517,7 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
 
 
 
-        iAddressIdentificationPresenter.hitDetails(map,document);
+        iAddressIdentificationPresenter.hitDetails(map,document,documentBack,sourceOfFund,addressProof);
     }
     private void Tier(){
         if(Tier == "Tier 1")
@@ -419,28 +540,12 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
                 case R.id.edtDistrict:
                     hideKeyboard(this);
                 break;
-
-                case R.id.FrontID:
-                    hideKeyboard(this);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (ContextCompat.checkSelfPermission(AddressAndIdentification.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                            showPictureDialog();
-
-
-                        } else {
-                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, ASK_MULTIPLE_PERMISSION_REQUEST_CODE);
-                        }
-                    } else {
-                        showPictureDialog();
-                    }
-
-                    break;
             }
         }
         return true;
     }
-    private void showPictureDialog() {
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(new ContextThemeWrapper(this, androidx.appcompat.R.style.Base_Theme_AppCompat_Dialog_Alert));
+    private void showPictureDialog(int choose) {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(new ContextThemeWrapper(this,R.style.Messagedialog));
         pictureDialog.setTitle("Select Option");
         String[] pictureDialogItems = {
                 "Select photo from gallery",
@@ -452,7 +557,7 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
                         switch (which) {
                             case 0:
                                 //Toast.makeText(getActivity(), "gfh", Toast.LENGTH_SHORT);
-                                choosePhotoFromGallary();
+                                choosePhotoFromGallary(choose);
                                 break;
                             case 1:
                                 takePhotoFromCamera();
@@ -465,11 +570,17 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
 
 
     }
-    public void choosePhotoFromGallary() {
+    public void choosePhotoFromGallary(int choose) {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-        startActivityForResult(galleryIntent, GALLERY);
+        if(choose == 1)
+             startActivityForResult(galleryIntent, GALLERY_FRONT);
+        if(choose == 2)
+            startActivityForResult(galleryIntent, GALLERY_BACK);
+        if(choose == 3)
+            startActivityForResult(galleryIntent, GALLERY_SOURCE);
+        if(choose == 4)
+            startActivityForResult(galleryIntent, GALLERY_ADDRESS);
     }
     private void takePhotoFromCamera() {
         intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -575,7 +686,7 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
-        if (requestCode == GALLERY && resultCode == RESULT_OK && data != null) {
+        if (requestCode == GALLERY_BACK || requestCode ==GALLERY_FRONT || requestCode ==GALLERY_SOURCE || requestCode ==GALLERY_ADDRESS && resultCode == RESULT_OK && data != null) {
 
 
             //the image URI
@@ -590,7 +701,14 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
             //calling the upload file method after choosing the file
             uploadFile(selectedImage, "My Image",requestCode,true);
             Log.d("GALLERY uri path", String.valueOf(selectedImage));
-//            txtDocName.setVisibility(View.GONE);
+            if(requestCode == GALLERY_FRONT)
+               txtFront.setVisibility(View.GONE);
+            if(requestCode == GALLERY_BACK)
+                txtBack.setVisibility(View.GONE);
+            if(requestCode == GALLERY_SOURCE)
+                txtSource.setVisibility(View.GONE);
+            if(requestCode == GALLERY_ADDRESS)
+                txtAddress.setVisibility(View.GONE);
 
 
         } else if (requestCode == CAMERA && resultCode == RESULT_OK) {
@@ -613,7 +731,7 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
                     uploadFile(tempUri, "My Image", requestCode,true);
 
                     Log.d("camera uri path", String.valueOf(tempUri));
-//                    txtDocName.setVisibility(View.GONE);
+                    txtFront.setVisibility(View.GONE);
                 }
             }catch (IOException e) {
                 e.printStackTrace();
@@ -632,41 +750,116 @@ public class AddressAndIdentification extends BaseActivity implements IAddressId
         return Uri.parse(path);
     }
     private void uploadFile(Uri fileUri, String desc,int requestCode, boolean image) {
-        if (image){
-            profile_img = FileUtils.getPathFromUri(this,fileUri);
-            Log.d("real path uri", FileUtils.getPathFromUri(this,fileUri));
+        if(requestCode == GALLERY_FRONT) {
+            if (image) {
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+//                Log.d("real path uri", FileUtils.getPathFromUri(this, fileUri));
+                //creating a file
+                file = new File(FileUtils.getPathFromUri(this, fileUri));
+                try {
+                    if (BitmapFactory.decodeFile(file.getAbsolutePath(), new BitmapFactory.Options()).getWidth() > BitmapFactory.decodeFile(file.getAbsolutePath(), new BitmapFactory.Options()).getHeight())
+                        file = SetOrientation.convertBitmapToFile(SetOrientation.rotateImage(BitmapFactory.decodeFile(file.getPath()), 90), AddressAndIdentification.this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                file = CompressFile.getCompressedImageFile(file, this);
+                Drawable backgroundImage = Drawable.createFromPath(profile_img);
+                imageFront.setImageDrawable(backgroundImage);
 
-            //creating a file
-            file = new File(FileUtils.getPathFromUri(this,fileUri));
-            try {
-                if (BitmapFactory.decodeFile(file.getAbsolutePath(),new BitmapFactory.Options()).getWidth()> BitmapFactory.decodeFile(file.getAbsolutePath(),new BitmapFactory.Options()).getHeight())
-                    file = SetOrientation.convertBitmapToFile(SetOrientation.rotateImage(BitmapFactory.decodeFile(file.getPath()),90),AddressAndIdentification.this);
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                imageFront.setImageDrawable(getResources().getDrawable(R.drawable.i));
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                file = new File(FileUtils.getPathFromUri(this, fileUri));
+                txtFront.setText(file.getName());
             }
-            file = CompressFile.getCompressedImageFile(file,this);
-            Drawable backgroundImage = Drawable.createFromPath(profile_img);
-            imageFront.setImageDrawable(backgroundImage);
-        }else{
-            imageFront.setImageDrawable(getResources().getDrawable(R.drawable.i));
-            profile_img = FileUtils.getPathFromUri(this,fileUri);
-            file = new File(FileUtils.getPathFromUri(this,fileUri));
-            txtFront.setText(file.getName());
+        }
+        if(requestCode == GALLERY_BACK) {
+            if (image) {
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                Log.d("real path uri", FileUtils.getPathFromUri(this, fileUri));
+                //creating a file
+                file_back= new File(FileUtils.getPathFromUri(this, fileUri));
+                try {
+                    if (BitmapFactory.decodeFile(file_back.getAbsolutePath(), new BitmapFactory.Options()).getWidth() > BitmapFactory.decodeFile(file_back.getAbsolutePath(), new BitmapFactory.Options()).getHeight())
+                        file_back = SetOrientation.convertBitmapToFile(SetOrientation.rotateImage(BitmapFactory.decodeFile(file_back.getPath()), 90), AddressAndIdentification.this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                file_back = CompressFile.getCompressedImageFile(file_back, this);
+                Drawable backgroundImage = Drawable.createFromPath(profile_img);
+                imageBack.setImageDrawable(backgroundImage);
+
+            } else {
+                imageBack.setImageDrawable(getResources().getDrawable(R.drawable.i));
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                file_back = new File(FileUtils.getPathFromUri(this, fileUri));
+                txtBack.setText(file_back.getName());
+            }
+        }
+        if(requestCode == GALLERY_SOURCE) {
+            if (image) {
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                Log.d("real path uri", FileUtils.getPathFromUri(this, fileUri));
+                //creating a file
+                file_SourceFunds = new File(FileUtils.getPathFromUri(this, fileUri));
+                try {
+                    if (BitmapFactory.decodeFile(file_SourceFunds.getAbsolutePath(), new BitmapFactory.Options()).getWidth() > BitmapFactory.decodeFile(file_SourceFunds.getAbsolutePath(), new BitmapFactory.Options()).getHeight())
+                        file_SourceFunds = SetOrientation.convertBitmapToFile(SetOrientation.rotateImage(BitmapFactory.decodeFile(file_SourceFunds.getPath()), 90), AddressAndIdentification.this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                file_SourceFunds = CompressFile.getCompressedImageFile(file_SourceFunds, this);
+                Drawable backgroundImage = Drawable.createFromPath(profile_img);
+                imageSourceFunds.setImageDrawable(backgroundImage);
+//                file_SourceFunds = CompressFile.getCompressedImageFile(file_SourceFunds, this);
+//                Drawable backgroundImage = Drawable.createFromPath(profile_img);
+//                imageSourceFunds.setImageDrawable(backgroundImage);
+
+            } else {
+                imageSourceFunds.setImageDrawable(getResources().getDrawable(R.drawable.i));
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                file_SourceFunds = new File(FileUtils.getPathFromUri(this, fileUri));
+                txtSource.setText(file_SourceFunds.getName());
+            }
+        }
+        if(requestCode == GALLERY_ADDRESS) {
+            if (image) {
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                Log.d("real path uri", FileUtils.getPathFromUri(this, fileUri));
+                //creating a file
+                file_AddressProof = new File(FileUtils.getPathFromUri(this, fileUri));
+                try {
+                    if (BitmapFactory.decodeFile(file_AddressProof.getAbsolutePath(), new BitmapFactory.Options()).getWidth() > BitmapFactory.decodeFile(file_AddressProof.getAbsolutePath(), new BitmapFactory.Options()).getHeight())
+                        file_AddressProof = SetOrientation.convertBitmapToFile(SetOrientation.rotateImage(BitmapFactory.decodeFile(file_AddressProof.getPath()), 90), AddressAndIdentification.this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                file_AddressProof = CompressFile.getCompressedImageFile(file_AddressProof, this);
+                Drawable backgroundImage = Drawable.createFromPath(profile_img);
+                imageAddressProof.setImageDrawable(backgroundImage);
+
+            } else {
+                imageAddressProof.setImageDrawable(getResources().getDrawable(R.drawable.i));
+                profile_img = FileUtils.getPathFromUri(this, fileUri);
+                file_AddressProof = new File(FileUtils.getPathFromUri(this, fileUri));
+                txtAddress.setText(file_AddressProof.getName());
+            }
         }
     }
 
     @Override
-    public void setResponse(SignUpResponse signUpResponse) {
-        if (signUpResponse != null && signUpResponse.getMessage() != null && signUpResponse.getMessage().getSuccessMessage() != null && signUpResponse.getMessage().getSuccessMessage().length() != 0) {
-            Toast.makeText(this, signUpResponse.getMessage().getSuccessMessage(), Toast.LENGTH_LONG).show();
+    public void setResponse(AddressIdentificationResponse Response) {
+        if (Response != null && Response.getMessage() != null && Response.getMessage().getSuccessMessage() != null && Response.getMessage().getSuccessMessage().length() != 0) {
+           ExtraUtils.Address=Response;
+            Toast.makeText(this, Response.getMessage().getSuccessMessage(), Toast.LENGTH_LONG).show();
             Intent intent = new Intent(AddressAndIdentification.this, SecurityDetails.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
 
         } else {
-            assert signUpResponse != null;
-            assert signUpResponse.getMessage() != null;
-            Toast.makeText(this, signUpResponse.getMessage().getErrorMessage(), Toast.LENGTH_LONG).show();
+            assert Response != null;
+            assert Response.getMessage() != null;
+            Toast.makeText(this, Response.getMessage().getErrorMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

@@ -16,6 +16,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.registration.Interface.Validators;
 import com.example.registration.MVP.Signup.ISignUpPresenter;
 import com.example.registration.MVP.Signup.ISignUpView;
@@ -90,6 +93,8 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        getSupportActionBar().hide();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         txtPhone=findViewById(R.id.txtPhone);
         txtVerifyOtp=findViewById(R.id.txtVerifyOtp);
         text=findViewById(R.id.text);
@@ -112,6 +117,7 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
         btnCancel1.setOnClickListener(this);
 //        btnCancel1.setVisibility(View.GONE);
         edCountryCode=findViewById(R.id.edCountryCode);
+        edCountryCode.setOnClickListener(this);
         btnVerifyCode = findViewById(R.id.btnVerifyCode);
         btnVerifyCode.setOnClickListener(this);
 //        btnVerifyCode.setVisibility(View.GONE);
@@ -148,6 +154,9 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     @Override
     public void onClick(View view) {
            switch(view.getId()){
+               case R.id.edCountryCode:
+                   hideKeyboard(this);
+                   break;
                case R.id.btnSendCode:
                    if (Validatee()){
                        if (Connectivity.isConnected(this)){
@@ -330,7 +339,7 @@ public class Signup extends BaseActivity implements Validators, View.OnClickList
     public void setValidateResponse(SignUpResponse signUpResponse) {
         if (signUpResponse!=null && signUpResponse.getMessage()!=null && signUpResponse.getMessage().getSuccessMessage()!=null && signUpResponse.getMessage().getSuccessMessage().length()!=0){
             Toast.makeText(this,signUpResponse.getMessage().getSuccessMessage(),Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Signup.this, PersonalDetails.class);
+            Intent intent = new Intent(Signup.this, Terms_Condotions.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
 

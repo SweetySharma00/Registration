@@ -3,6 +3,7 @@ package com.example.registration.MVP.AddressIdentification;
 import com.example.registration.Activity.BaseActivity;
 import com.example.registration.RetrofitAPI.api.RetrofitFactory;
 import com.example.registration.RetrofitAPI.interfaces.IRetrofitContract;
+import com.example.registration.RetrofitAPI.models.response.AddressIdentificationResponse;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 import com.example.registration.Utils.RetroUtils;
 
@@ -21,7 +22,7 @@ public class AddressIdentificationPresenterImpl implements IAddressIdentificatio
 
     IAddressIdentificationView iAddressIdentificationView;
     @Override
-    public void hitDetails(HashMap<String, RequestBody> map, MultipartBody.Part doc) {
+    public void hitDetails(HashMap<String, RequestBody> map, MultipartBody.Part doc, MultipartBody.Part docBack,MultipartBody.Part sourceFunds,MultipartBody.Part addressProof) {
 
         String digest = iAddressIdentificationView.getDigest();
         String PlatformType = ((BaseActivity) iAddressIdentificationView).getPlatformType();
@@ -29,19 +30,19 @@ public class AddressIdentificationPresenterImpl implements IAddressIdentificatio
 //        String ContentType = ((BaseActivity) iPersonalDetailView).getContentType();
         RetrofitFactory retrofitFactory = RetrofitFactory.getInstance();
         IRetrofitContract iRetrofitContract = retrofitFactory.getRetrofitContract(RetroUtils.APP_ENV);
-        Observable<Response<SignUpResponse>> signUpResponseOb = iRetrofitContract.AddressDetails(digest,PlatformType, ClientType,map,doc);
-        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<SignUpResponse>>() {
+        Observable<Response<AddressIdentificationResponse>> signUpResponseOb = iRetrofitContract.AddressDetails(digest,PlatformType, ClientType,map,doc,docBack,sourceFunds,addressProof);
+        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<AddressIdentificationResponse>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(Response<SignUpResponse> signUpResponse) {
-                if (signUpResponse.errorBody() == null) {
-                    String digest = signUpResponse.headers().get("Access-Medium");
+            public void onNext(Response<AddressIdentificationResponse> Response) {
+                if (Response.errorBody() == null) {
+                    String digest = Response.headers().get("Access-Medium");
                     iAddressIdentificationView.setDigest(digest);
-                    iAddressIdentificationView.setResponse(signUpResponse.body());
+                    iAddressIdentificationView.setResponse(Response.body());
                 } else {
                     iAddressIdentificationView.setError(new Throwable());
                 }

@@ -7,6 +7,9 @@ import android.text.style.ForegroundColorSpan;
 import android.widget.TextView;
 
 import com.example.registration.RetrofitAPI.models.request.SignupRequest;
+import com.example.registration.RetrofitAPI.models.response.AddressIdentificationResponse;
+import com.example.registration.RetrofitAPI.models.response.PersonalDetailResponse;
+import com.example.registration.RetrofitAPI.models.response.SecurityDetailsResponse;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -18,7 +21,9 @@ public class ExtraUtils {
     public static final int FORBIDDEN = 403;
     public static final int ServiceError = 500;
 
-
+    public static PersonalDetailResponse details;
+    public static AddressIdentificationResponse Address;
+    public static SecurityDetailsResponse SecurityDetails;
     public static final String DO_LOGIN = "DO_LOGIN";
     public static final String ADDRESS_DATA = "ADDRESS_DATA";
     public static final String HOUSEHOLD_DATA = "HOUSEHOLD_DATA";

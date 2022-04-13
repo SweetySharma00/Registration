@@ -4,6 +4,7 @@ import com.example.registration.Activity.BaseActivity;
 import com.example.registration.MVP.Signup.ISignUpView;
 import com.example.registration.RetrofitAPI.api.RetrofitFactory;
 import com.example.registration.RetrofitAPI.interfaces.IRetrofitContract;
+import com.example.registration.RetrofitAPI.models.response.PersonalDetailResponse;
 import com.example.registration.RetrofitAPI.models.response.SignUpResponse;
 import com.example.registration.Utils.RetroUtils;
 
@@ -31,20 +32,20 @@ public class PersonalDetailPresenterImpl implements IPersonalDetailPresenter {
 //        String ContentType = ((BaseActivity) iPersonalDetailView).getContentType();
         RetrofitFactory retrofitFactory = RetrofitFactory.getInstance();
         IRetrofitContract iRetrofitContract = retrofitFactory.getRetrofitContract(RetroUtils.APP_ENV);
-        Observable<Response<SignUpResponse>> signUpResponseOb = iRetrofitContract.Details(digest,PlatformType, ClientType,map,doc);
-        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<SignUpResponse>>() {
+        Observable<Response<PersonalDetailResponse>> signUpResponseOb = iRetrofitContract.Details(digest,PlatformType, ClientType,map,doc);
+        signUpResponseOb.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new Observer<Response<PersonalDetailResponse>>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(Response<SignUpResponse> signUpResponse) {
+            public void onNext(Response<PersonalDetailResponse> personalDetailResponseResponse) {
 //                iPersonalDetailView.setResponse(signUpResponse.body());
-                if (signUpResponse.errorBody()==null){
-                    String digest = signUpResponse.headers().get("Access-Medium");
+                if (personalDetailResponseResponse.errorBody()==null){
+                    String digest = personalDetailResponseResponse.headers().get("Access-Medium");
                     iPersonalDetailView.setDigest(digest);
-                    iPersonalDetailView.setResponse(signUpResponse.body());
+                    iPersonalDetailView.setResponse(personalDetailResponseResponse.body());
                 }else{iPersonalDetailView.setError(new Throwable());
                 }
             }

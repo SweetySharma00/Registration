@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Activity.ReviewDetails">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white">
 
+        <TextView
+            android:id="@+id/txtt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10sp"
+            android:gravity="center"
+            android:text="Registration (Step 5/5)"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_marginTop="45dp"
+            android:background="@color/green"
+            android:outlineSpotShadowColor="@color/grey" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -23,6 +49,11 @@
               android:textAlignment="center"
               android:layout_gravity="center"
               android:layout_marginBottom="10sp"/>
+          <ImageView
+              android:id="@+id/imagePersonalDetails"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_eye"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -36,11 +67,12 @@
               android:layout_weight="1"
               android:text="Personal Details"
               android:layout_marginVertical="10sp"
-              android:textSize="18sp"
+              android:textSize="20sp"
               android:textStyle="bold"
               android:textColor="@color/green" />
 
               <ImageView
+                  android:id="@+id/edtPersonalDetails"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
                   android:layout_gravity="start"
@@ -48,60 +80,117 @@
                   android:src="@drawable/ic_edit_icon" />
           </LinearLayout>
           <TextView
+              android:id="@+id/txtFirstName"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="First Name:" />
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtFirstName"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"/>
+<!--          <TextView-->
+<!--              android:id="@+id/txtMiddleName"-->
+<!--              android:layout_width="match_parent"-->
+<!--              android:layout_height="match_parent"-->
+<!--              android:text="First Name:"/>-->
+<!--          <EditText-->
+<!--              android:layout_width="match_parent"-->
+<!--              android:layout_height="wrap_content" />-->
           <TextView
+              android:id="@+id/txtMiddleName"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:text="First Name:"/>
-          <EditText
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Middle Name:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtMiddleName"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtLastName"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Last Name:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtLastName"
+              android:textColor="@color/green"
+              android:enabled="false"
               android:layout_width="match_parent"
+              android:textStyle="italic"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtdob"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Date Of Birth:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtdob"
+              android:textColor="@color/green"
+              android:enabled="false"
               android:layout_width="match_parent"
+              android:textStyle="italic"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtGender"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Gender:"/>
           <EditText
+              android:inputType="none"
+             android:id="@+id/edtGender"
+              android:textColor="@color/green"
+              android:enabled="false"
               android:layout_width="match_parent"
+              android:textStyle="italic"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtCob"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Country Of Birth:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtCob"
+              android:textColor="@color/green"
+              android:enabled="false"
               android:layout_width="match_parent"
+              android:textStyle="italic"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtNationality"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Nationality:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtNationality"
+              android:textColor="@color/green"
+              android:enabled="false"
               android:layout_width="match_parent"
+              android:textStyle="italic"
               android:layout_height="wrap_content" />
           <LinearLayout
               android:layout_width="match_parent"
@@ -116,11 +205,12 @@
                   android:layout_weight="1.6"
                   android:text="Permanent Address And\nIdentification"
                   android:layout_marginVertical="10sp"
-                  android:textSize="18sp"
+                  android:textSize="20sp"
                   android:textStyle="bold"
                   android:textColor="@color/green" />
 
               <ImageView
+                  android:id="@+id/edtAddressIdentification"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
                   android:layout_gravity="start"
@@ -128,89 +218,380 @@
                   android:src="@drawable/ic_edit_icon" />
           </LinearLayout>
           <TextView
+              android:id="@+id/txtStreetAdd"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Street Address:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtStreetAdd"
+              android:enabled="false"
+              android:textColor="@color/green"
               android:layout_width="match_parent"
+              android:textStyle="italic"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtApartment"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Apartment/Suite:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtApartment"
+              android:textColor="@color/green"
+              android:enabled="false"
+              android:textStyle="italic"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtParish"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Parish:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtParish"
+              android:textColor="@color/green"
+              android:enabled="false"
+              android:textStyle="italic"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtCity"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="City/Town:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtCity"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:textColor="@color/green"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtDistrict"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="District:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtDistrict"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:textColor="@color/green"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtEmail"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Email Address:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtEmail"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:textColor="@color/green"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtTRN"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="TRN:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtTRN"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtIDtype"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="ID Type:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtIDtype"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtIDnumber"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="ID Number:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtIDnumber"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:textColor="@color/green"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtIDexp"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="ID Expiration Date:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtIDexp"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="(Front ID)"
+              android:textSize="19sp"
+              android:textAlignment="center"/>
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/FrontID"
+              android:layout_width="match_parent"
+              android:layout_height="150dp"
+              android:background="@drawable/shape"
+              android:elevation="7dp">
+              <ImageView
+                  android:id="@+id/imageFront"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_eye"/>
+<!--          <ImageView-->
+<!--              android:id="@+id/imageFront"-->
+<!--              android:layout_width="wrap_content"-->
+<!--              android:layout_height="wrap_content"-->
+<!--              app:src="@drawable/ic_eye" />-->
+          </com.google.android.material.card.MaterialCardView>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="(Back ID)"
+              android:textSize="19sp"
+              android:textAlignment="center"/>
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/BackID"
+              android:layout_width="match_parent"
+              android:layout_height="150dp"
+              android:background="@drawable/shape"
+              android:elevation="7dp">
+              <ImageView
+                  android:id="@+id/imageBack"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_eye"/>
+<!--              <ImageView-->
+<!--                  android:id="@+id/imageBack"-->
+<!--                  android:layout_width="wrap_content"-->
+<!--                  android:layout_height="wrap_content"-->
+<!--                  app:src="@drawable/ic_eye" />-->
+          </com.google.android.material.card.MaterialCardView>
+          <TextView
+              android:id="@+id/txtOptForCash"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Opted For Cash Recharge:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtOptForCash"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <LinearLayout
+              android:id="@+id/LinearHide"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+          <TextView
+              android:id="@+id/txtTierDetails"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:text="Tier Details:"/>
+          <EditText
+              android:inputType="none"
+              android:id="@+id/edtTierDetails"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <LinearLayout
+              android:id="@+id/Linear1"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="Source of Funds Proof Document"
+              android:textSize="19sp"
+              android:textAlignment="center"/>
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/SourceFunds"
+              android:layout_width="match_parent"
+              android:layout_height="150dp"
+              android:background="@drawable/shape"
+              android:elevation="7dp">
+              <ImageView
+                  android:id="@+id/imageSourceFunds"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_eye"/>
+<!--              <ImageView-->
+<!--                  android:id="@+id/imageSourceFunds"-->
+<!--                  android:layout_width="wrap_content"-->
+<!--                  android:layout_height="wrap_content"-->
+<!--                  app:src="@drawable/ic_eye" />-->
+          </com.google.android.material.card.MaterialCardView>
+          <TextView
+              android:id="@+id/txtOccupation"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:text="Occupation/Line of Business:"/>
+          <EditText
+              android:inputType="none"
+              android:id="@+id/edtOccupation"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+           <LinearLayout
+               android:id="@+id/Linear2"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="Address Proof Document"
+              android:textSize="19sp"
+              android:textAlignment="center"/>
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/AddressProof"
+              android:layout_width="match_parent"
+              android:layout_height="150dp"
+              android:background="@drawable/shape"
+              android:elevation="7dp">
+              <ImageView
+                  android:id="@+id/imageAddressProof"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@drawable/ic_eye"/>
+<!--              <ImageView-->
+<!--                  android:id="@+id/imageAddressProof"-->
+<!--                  android:layout_width="wrap_content"-->
+<!--                  android:layout_height="wrap_content"-->
+<!--                  app:src="@drawable/ic_eye" />-->
+          </com.google.android.material.card.MaterialCardView>
+           <LinearLayout
+               android:id="@+id/Linear3"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+          <TextView
+              android:id="@+id/txtBankName"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:text="Name Of Bank:"/>
+          <EditText
+              android:inputType="none"
+              android:id="@+id/edtBankName"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtBankBranch"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:text="Tier Details:"/>
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:text="Bank Branch:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtBankBranch"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
+          <TextView
+              android:id="@+id/txtAccNumber"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:text="Account Number:"/>
+          <EditText
+              android:id="@+id/edtAccNumber"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+          <TextView
+              android:inputType="none"
+              android:id="@+id/txtAccType"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:text="Account Type:"/>
+          <EditText
+              android:inputType="none"
+              android:id="@+id/edtAccType"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content" />
+           </LinearLayout>
+           </LinearLayout>
+          </LinearLayout>
+          </LinearLayout>
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -224,11 +605,12 @@
                   android:layout_weight="1"
                   android:text="Security Details"
                   android:layout_marginVertical="10sp"
-                  android:textSize="18sp"
+                  android:textSize="20sp"
                   android:textStyle="bold"
                   android:textColor="@color/green" />
 
               <ImageView
+                  android:id="@+id/edtSecurityDetails"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
                   android:layout_gravity="start"
@@ -236,17 +618,33 @@
                   android:src="@drawable/ic_edit_icon" />
           </LinearLayout>
           <TextView
+              android:id="@+id/txtQues1"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Question1:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtQues1"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtQues2"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Question2:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtQues2"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <LinearLayout
@@ -262,11 +660,12 @@
                   android:layout_weight="1"
                   android:text="Miscellaneous"
                   android:layout_marginVertical="10sp"
-                  android:textSize="18sp"
+                  android:textSize="20sp"
                   android:textStyle="bold"
                   android:textColor="@color/green" />
 
               <ImageView
+                  android:id="@+id/edtMiscellaneous"
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
                   android:layout_gravity="start"
@@ -274,24 +673,48 @@
                   android:src="@drawable/ic_edit_icon" />
           </LinearLayout>
           <TextView
+              android:id="@+id/txtareYouPEP"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Are you a Politically Exposed Person\n(PEP)?:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtareYouPEP"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtfamilyMemberPEP"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Are you the family member of a Politically\nExposed Person(PEP)?:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtfamilyMemberPEP"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <TextView
+              android:id="@+id/txtcloseAssociatePEP"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:textSize="18sp"
+              android:textStyle="bold"
               android:text="Are you a close associate of a Politically\nExposed Person(PEP)?:"/>
           <EditText
+              android:inputType="none"
+              android:id="@+id/edtcloseAssociatePEP"
+              android:textColor="@color/green"
+              android:textStyle="italic"
+              android:enabled="false"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
           <Button
@@ -314,4 +737,5 @@
               android:textColor="@color/white" />
 
       </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</LinearLayout>
